@@ -63,7 +63,8 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ postId, initialPost
   const [copiedLink, setCopiedLink] = useState(false);
   const [readTime, setReadTime] = useState('');
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [isDataLoaded, setIsDataLoaded] = useState(!!initialPost);
+  const [isAnimating, setIsAnimating] = useState(true);
 
   const scrollRef = useRef<number>(0);
   const rafRef = useRef<number | null>(null);
@@ -105,7 +106,9 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ postId, initialPost
 
   useEffect(() => {
     if (!isLoadingContent && post) {
-      const timer = setTimeout(() => setIsDataLoaded(true), 100);
+      setIsDataLoaded(true);
+      // Animação de entrada
+      const timer = setTimeout(() => setIsAnimating(false), 50);
       return () => clearTimeout(timer);
     }
   }, [isLoadingContent, post]);
@@ -221,10 +224,10 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ postId, initialPost
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors duration-200 relative pb-20 overflow-x-hidden">
+    <div className={`min-h-screen bg-white dark:bg-slate-900 transition-all duration-500 relative pb-20 overflow-x-hidden ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 h-14 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between px-4 border-b border-transparent shadow-lg">
-        <button onClick={() => router.back()} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-colors">
+      <nav className="fixed top-0 left-0 right-0 z-50 h-14 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between px-4 border-b border-transparent shadow-lg transition-all duration-300">
+        <button onClick={() => router.back()} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all duration-200 hover:scale-110 active:scale-95">
           <ArrowLeft size={20} />
         </button>
         <div className="flex-1 mx-4 overflow-hidden">
@@ -238,13 +241,13 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ postId, initialPost
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-colors">
+          <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all duration-200 hover:scale-110 active:scale-95">
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          <button onClick={sharePost} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-colors relative">
+          <button onClick={sharePost} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all duration-200 hover:scale-110 active:scale-95 relative">
             <FiShare2 size={20} />
             {copiedLink && (
-              <span className="absolute right-full mr-2 top-1/2 -translate-y-1/2 px-2 py-1 bg-black text-white text-xs rounded shadow-lg whitespace-nowrap">
+              <span className="absolute right-full mr-2 top-1/2 -translate-y-1/2 px-2 py-1 bg-black text-white text-xs rounded shadow-lg whitespace-nowrap animate-in fade-in slide-in-from-right-2 duration-200">
                 Copiado!
               </span>
             )}
@@ -253,8 +256,8 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ postId, initialPost
       </nav>
 
       {/* Progress bar */}
-      <div className="fixed left-0 right-0 top-14 h-[2px] z-[49]">
-        <div className={`h-full ${tc.progress} opacity-60 transition-all duration-75`} style={{ width: `${scrollProgress}%` }} />
+      <div className="fixed left-0 right-0 top-14 h-[3px] z-[49] bg-slate-200/30 dark:bg-slate-800/30">
+        <div className={`h-full ${tc.progress} transition-all duration-150 ease-out shadow-lg`} style={{ width: `${scrollProgress}%` }} />
       </div>
 
       {/* Content */}
@@ -271,8 +274,8 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ postId, initialPost
 
           {/* Category */}
           {post.category && (
-            <div className="mb-4">
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1 ${tc.bg} ${tc.text} font-bold tracking-wide text-[10px] uppercase`}>
+            <div className="mb-4 animate-in fade-in slide-in-from-left-2 duration-500">
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1 ${tc.bg} ${tc.text} font-bold tracking-wide text-[10px] uppercase rounded-full`}>
                 {getCategoryIcon(post.category, 14, tc.text)}
                 {post.category}
               </span>
@@ -280,19 +283,19 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ postId, initialPost
           )}
 
           {/* Title */}
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-4 leading-tight tracking-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-4 leading-tight tracking-tight animate-in fade-in slide-in-from-left-4 duration-700">
             {post.title}
           </h1>
 
           {/* Excerpt */}
           {post.excerpt && (
-            <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-6">
+            <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-medium mb-6 animate-in fade-in slide-in-from-left-6 duration-700 delay-100">
               {post.excerpt}
             </p>
           )}
 
           {/* Author / Meta */}
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex items-center gap-3 mb-8 animate-in fade-in slide-in-from-left-8 duration-700 delay-200">
             <div className="relative w-10 h-10 shrink-0">
               <Image src="/logo_3d.png" alt="Logo Fábrica de Cupons" fill className="object-contain" />
             </div>
@@ -312,23 +315,30 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ postId, initialPost
 
           {/* Cover image */}
           {post.imageUrl && (
-            <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-8 shadow-lg">
-              <Image src={post.imageUrl} alt={post.title} fill className="object-cover" unoptimized={post.imageUrl.includes('placehold.co') || post.imageUrl.endsWith('.svg')} />
+            <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-8 shadow-2xl animate-in fade-in zoom-in-95 duration-700 delay-300">
+              <Image 
+                src={post.imageUrl} 
+                alt={post.title} 
+                fill 
+                className="object-cover" 
+                priority
+                unoptimized={post.imageUrl.includes('placehold.co') || post.imageUrl.endsWith('.svg')} 
+              />
             </div>
           )}
 
           {/* Blocks */}
           {blocks.length > 0 ? (
-            <div className="space-y-6 mb-10">
+            <div className="space-y-6 mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
               {blocks.map((block, index) => (
-                <div key={(block as any).id || index}>
+                <div key={(block as any).id || index} className="animate-in fade-in slide-in-from-bottom-2 duration-500" style={{ animationDelay: `${400 + index * 50}ms` }}>
                   <WidgetRenderer block={block} />
                 </div>
               ))}
             </div>
           ) : (
             post.content && (
-              <div className="mb-10">
+              <div className="mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
                 <PostViewer content={post.content} postCategory={post.category} />
               </div>
             )

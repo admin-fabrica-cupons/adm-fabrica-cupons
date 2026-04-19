@@ -123,19 +123,41 @@ export async function POST(req: Request) {
     if (model !== 'groq') {
       const validPollinationsModels = ['qwen-safety', 'nova-fast', 'mistral', 'gemini-fast'];
       const pollinationsModel = validPollinationsModels.includes(model) ? model : 'qwen-safety';
-      const polliKey = process.env.POLLI_KEY || process.env.NEXT_PUBLIC_POLLI_KEY || '';
+      
+      // Construir o prompt completo com contexto do sistema
       const pollinationsPrompt = apiMessages
         .map((msg) => {
           const roleLabel = msg.role === 'assistant' ? 'Assistente' : msg.role === 'user' ? 'Usuário' : 'Sistema';
           return `${roleLabel}: ${msg.content}`;
         })
         .join('\n\n');
-      const pollinationsUrl = `https://gen.pollinations.ai/text/${encodeURIComponent(pollinationsPrompt)}?model=${encodeURIComponent(pollinationsModel)}${polliKey ? `&key=${encodeURIComponent(polliKey)}` : ''}`;
-      const pollinationsResponse = await fetch(pollinationsUrl);
+      
+      // Nova URL da API do Pollinations (sem key na URL)
+      const pollinationsUrl = `https://text.pollinations.ai/${encodeURIComponent(pollinationsPrompt)}?model=${encodeURIComponent(pollinationsModel)}`;
+      
+      const pollinationsResponse = await fetch(pollinationsUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'text/plain',
+        },
+      });
+      
       if (!pollinationsResponse.ok) {
-        return NextResponse.json({ error: `Falha ao gerar texto (${pollinationsResponse.status})` }, { status: 500 });
+        const errorText = await pollinationsResponse.text().catch(() => '');
+        console.error('Erro Pollinations:', pollinationsResponse.status, errorText);
+        return NextResponse.json({ 
+          error: `Falha ao gerar texto com ${model} (${pollinationsResponse.status})` 
+        }, { status: 500 });
       }
+      
       const text = (await pollinationsResponse.text()).trim();
+      
+      if (!text) {
+        return NextResponse.json({ 
+          error: 'Resposta vazia do modelo' 
+        }, { status: 500 });
+      }
+      
       return NextResponse.json({ text, reply: text });
     }
 

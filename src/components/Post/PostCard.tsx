@@ -182,7 +182,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
       <Link
         href={`/post/${post.id}`}
-        className={`group flex flex-col h-full relative bg-transparent rounded-lg bg-white dark:bg-transparent border ${borderColor} ${shadowEffect} overflow-hidden transition-all duration-300`}
+        prefetch={true}
+        className={`group flex flex-col h-full relative bg-transparent rounded-lg bg-white dark:bg-transparent border ${borderColor} ${shadowEffect} overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]`}
       >
         <button
           onClick={toggleFavorite}
@@ -243,7 +244,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             unoptimized={post.thumbnail?.includes('placehold.co')}
             loading="lazy"
-            className="object-cover object-center transition-transform duration-300 group-hover:scale-105 w-full h-full"
+            priority={false}
+            className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-110 w-full h-full"
           />
 
           <div className="absolute bottom-3 left-3">

@@ -32,6 +32,7 @@ const CouponPostCard: React.FC<CouponPostCardProps> = ({ post }) => {
   return (
     <Link
       href={`/post/${post.id}`}
+      prefetch={true}
       // CONTAINER PRINCIPAL:
       // - backdrop-blur-md: Cria o desfoque
       // - bg-white/40: Fundo branco com 40% de opacidade (transparente)
@@ -40,7 +41,7 @@ const CouponPostCard: React.FC<CouponPostCardProps> = ({ post }) => {
       className="group flex flex-col h-full rounded-2xl overflow-hidden transition-all duration-300
                  bg-white/40 dark:bg-slate-900/40 backdrop-blur-md 
                  border border-emerald-500/20 hover:border-emerald-500/60
-                 shadow-sm hover:shadow-emerald-500/10"
+                 shadow-sm hover:shadow-emerald-500/10 hover:scale-[1.02] active:scale-[0.98]"
     >
       {/* Efeito degradê verde suave no fundo do card (bem sutil) */}
       <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent pointer-events-none" />

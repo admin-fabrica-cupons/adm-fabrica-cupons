@@ -85,10 +85,10 @@ const responseSizeOptions = [
 
 const modelOptions = [
   { id: 'groq', label: 'Groq', Icon: Groq.Avatar },
-  { id: 'qwen-safety', label: 'Qwen', Icon: Qwen.Avatar },
-  { id: 'nova-fast', label: 'Amazon Nova', Icon: Nova.Avatar },
+  { id: 'qwen-safety', label: 'Qwen Safety', Icon: Qwen.Avatar },
+  { id: 'nova-fast', label: 'Nova Fast', Icon: Nova.Avatar },
   { id: 'mistral', label: 'Mistral', Icon: Mistral.Avatar },
-  { id: 'gemini-fast', label: 'Gemini', Icon: Gemini.Avatar },
+  { id: 'gemini-fast', label: 'Gemini Fast', Icon: Gemini.Avatar },
 ];
 
 const RiAiGenerate2 = RiAiGenerateText;
@@ -972,7 +972,7 @@ const AIChat: React.FC<AIChatProps> = ({
                       ) : (
                         <TypingAnimation
                           text={msg.text}
-                          duration={5}
+                          duration={20}
                           className="text-sm leading-relaxed"
                         />
                       )}
