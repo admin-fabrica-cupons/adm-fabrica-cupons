@@ -1,0 +1,383 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "Smartphones Custo-Benefício: Guia Completo 2024",
+      "excerpt": "Descubra quais são os melhores smartphones para comprar hoje com cupons exclusivos e preços agressivos nas principais lojas.",
+      "thumbnail": "https://placehold.co/800x600/2D3277/FFF?text=Smartphones+2024",
+      "category": "Tecnologia",
+      "date": "2024-06-15",
+      "isCouponPost": true,
+      "blocks": [
+        {
+          "id": "b1",
+          "type": "heading",
+          "content": "Nossa Escolha: Samsung Galaxy S23 FE"
+        },
+        {
+          "id": "b2",
+          "type": "product",
+          "productName": "Samsung Galaxy S23 FE 128GB 5G",
+          "price": "R$ 2.499,00",
+          "originalPrice": "R$ 3.499,00",
+          "rating": 4.8,
+          "src": "https://placehold.co/400x400/FFF/333?text=Galaxy+S23+FE",
+          "description": "O Galaxy S23 FE traz a experiênca premium da linha S com um preço muito mais acessível.",
+          "pros": [
+            "Câmeras excelentes",
+            "Tela AMOLED 120Hz",
+            "Design Premium"
+          ],
+          "cons": [
+            "Bateria moderada",
+            "Aquecimento em jogos pesados"
+          ],
+          "couponCode": "SAMSUNG200",
+          "name": "R$ 200 OFF",
+          "isExpired": false,
+          "affiliateLink": "https://mercadolivre.com.br/",
+          "affiliateButtonText": "Comprar no Mercado Livre",
+          "affiliateLogo": "https://logospng.org/wp-content/uploads/mercado-livre.png"
+        },
+        {
+          "id": "b3",
+          "type": "heading",
+          "content": "Destaque em Performance: iPhone 13"
+        },
+        {
+          "id": "b4",
+          "type": "hot_product",
+          "productName": "Apple iPhone 13 128GB",
+          "price": "R$ 3.299,00",
+          "originalPrice": "R$ 4.999,00",
+          "badge": "Melhor Preço Apple",
+          "rating": 4.9,
+          "src": "https://placehold.co/600x400/000/FFF?text=iPhone+13",
+          "description": "O iPhone 13 continua sendo um dos melhores investimentos em 2024 devido à sua longevidade e performance estável.",
+          "couponCode": "IPHONE300",
+          "name": "300 REAIS DE DESCONTO",
+          "affiliateLink": "https://amazon.com.br/",
+          "affiliateButtonText": "Ver na Amazon",
+          "affiliateLogo": "https://logopng.com.br/logos/amazon-1.png"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Melhores Tênis para Corrida: Ranking de Junho",
+      "excerpt": "Procurando um tênis novo? Fizemos um ranking com os modelos mais recomendados por especialistas com descontos imperdíveis.",
+      "thumbnail": "https://placehold.co/800x600/EE4D2D/FFF?text=Corrida+Pro",
+      "category": "Esportes",
+      "date": "2024-06-12",
+      "isCouponPost": true,
+      "blocks": [
+        {
+          "id": "b1",
+          "type": "product_list",
+          "content": "Top 3 Tênis de Performance",
+          "listType": "grid",
+          "columns": 3,
+          "items": [
+            {
+              "id": "item1",
+              "title": "Nike Air Zoom Pegasus 40",
+              "description": "O cavalo de pau da Nike, ideal para treinos diários e volume.",
+              "price": "R$ 599,00",
+              "originalPrice": "R$ 899,00",
+              "rating": 4.7,
+              "image": "https://placehold.co/300x300/FFF/000?text=Nike+Pegasus",
+              "couponCode": "NIKE20",
+              "couponName": "20% EXTRA",
+              "affiliateLink": "https://shopee.com.br/",
+              "affiliateButtonText": "Oferta Shopee",
+              "affiliateLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopee_logo.svg/960px-Shopee_logo.svg.png"
+            },
+            {
+              "id": "item2",
+              "title": "Adidas Ultraboost Light",
+              "description": "Máximo conforto com o novo boost muito mais leve.",
+              "price": "R$ 899,00",
+              "originalPrice": "R$ 1.199,00",
+              "rating": 4.8,
+              "image": "https://placehold.co/300x300/FFF/000?text=Adidas+Ultraboost",
+              "couponCode": "STRIPES15",
+              "couponName": "15% OFF",
+              "affiliateLink": "https://adidas.com.br/",
+              "affiliateButtonText": "Ir para Loja Adidas"
+            },
+            {
+              "id": "item3",
+              "title": "Olympikus Corre 3",
+              "description": "O melhor custo-benefício nacional para corredores.",
+              "price": "R$ 399,00",
+              "originalPrice": "R$ 499,00",
+              "rating": 4.6,
+              "image": "https://placehold.co/300x300/FFF/000?text=Olympikus+Corre",
+              "couponCode": "CORRE10",
+              "couponName": "10% OFF VÁLIDO",
+              "isExpired": true,
+              "affiliateLink": "https://netshoes.com.br/",
+              "affiliateButtonText": "Netshoes Especial"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Mega Guia de Ofertas: Demonstração de Todos os Widgets",
+      "excerpt": "Este post serve como uma demonstração completa de todas as capacidades visuais e interativas do blog Fábrica de Cupons.",
+      "thumbnail": "https://placehold.co/800x600/3B82F6/FFF?text=Mega+Guia+Widgets+2024",
+      "category": "Curadoria",
+      "date": "2024-06-20",
+      "publishedAt": "2024-06-20T10:00:00Z",
+      "isCouponPost": true,
+      "blocks": [
+        {
+          "id": "h1",
+          "type": "heading",
+          "content": "1. Introdução aos Widgets"
+        },
+        {
+          "id": "p1",
+          "type": "paragraph",
+          "content": "Este é um widget de parágrafo. Ele é ideal para fornecer contexto, descrições detalhadas e guiar o usuário através do conteúdo. Abaixo, você verá uma imagem de demonstração em alta definição configurada com proporção 16:9."
+        },
+        {
+          "id": "i1",
+          "type": "image",
+          "src": "https://placehold.co/1200x500/1E293B/FFF?text=Banner+Demonstrativo+V3",
+          "alt": "Banner demonstrativo",
+          "imageRatio": "16:9",
+          "imageSize": "large"
+        },
+        {
+          "id": "h2",
+          "type": "heading",
+          "content": "2. Produtos Individuais e Ofertas Hot"
+        },
+        {
+          "id": "prod1",
+          "type": "product",
+          "productName": "Console PlayStation 5 Slim",
+          "price": "R$ 3.499,00",
+          "originalPrice": "R$ 4.299,00",
+          "rating": 4.9,
+          "src": "https://placehold.co/400x400/FFF/000?text=PS5+Slim",
+          "description": "O novo modelo Slim do PS5 é mais compacto e vem com 1TB de armazenamento SSD para seus jogos favoritos.",
+          "pros": [
+            "Design mais leve e compacto",
+            "Performance de nova geração",
+            "Vasto catálogo de exclusivos"
+          ],
+          "cons": [
+            "Preço elevado dos jogos",
+            "Base vertical vendida separadamente"
+          ],
+          "couponCode": "PLAYSTATION500",
+          "name": "R$ 500 OFF NO CARRINHO",
+          "isExpired": false,
+          "affiliateLink": "https://amazon.com.br/",
+          "affiliateButtonText": "Comprar na Amazon",
+          "affiliateLogo": "https://logopng.com.br/logos/amazon-1.png"
+        },
+        {
+          "id": "hot1",
+          "type": "hot_product",
+          "productName": "MacBook Air M2 13.6\"",
+          "price": "R$ 7.899,00",
+          "originalPrice": "R$ 10.999,00",
+          "badge": "OFERTA DO DIA",
+          "rating": 5.0,
+          "src": "https://placehold.co/600x400/334155/FFF?text=MacBook+Air+M2",
+          "description": "Potência pura no chip M2 da Apple. Um notebook incrivelmente fino e rápido, ideal para produtividade e design em qualquer lugar.",
+          "couponCode": "MACM2PROMO",
+          "name": "DESCONTO EXCLUSIVO APPLE",
+          "affiliateLink": "https://mercadolivre.com.br/",
+          "affiliateButtonText": "Ver Oferta no Mercado Livre",
+          "affiliateLogo": "https://logospng.org/wp-content/uploads/mercado-livre.png"
+        },
+        {
+          "id": "h3",
+          "type": "heading",
+          "content": "3. Grades e Listas de Cupons"
+        },
+        {
+          "id": "plist1",
+          "type": "product_list",
+          "content": "Seleção de Periféricos Gamer",
+          "listType": "grid",
+          "columns": 3,
+          "items": [
+            {
+              "id": "pitem1",
+              "title": "Mouse Logitech G502 Hero",
+              "description": "Sensor HERO de 25K e pesos ajustáveis.",
+              "price": "R$ 289,00",
+              "originalPrice": "R$ 399,00",
+              "rating": 4.8,
+              "image": "https://placehold.co/300x300/FFF/000?text=G502+Hero",
+              "couponCode": "LOGI15",
+              "couponName": "15% OFF",
+              "affiliateLink": "https://kabum.com.br/"
+            },
+            {
+              "id": "pitem2",
+              "title": "Teclado Corsair K70 RGB",
+              "description": "Switches mecânicos Cherry MX Speed.",
+              "price": "R$ 849,00",
+              "originalPrice": "R$ 1.100,00",
+              "rating": 4.7,
+              "image": "https://placehold.co/300x300/FFF/000?text=Corsair+K70",
+              "couponCode": "RGBGAMER",
+              "couponName": "R$ 100 OFF",
+              "affiliateLink": "https://kabum.com.br/"
+            },
+            {
+              "id": "pitem3",
+              "title": "Headset Razer BlackShark V2",
+              "description": "Áudio espacial THX e microfone cardioide.",
+              "price": "R$ 499,00",
+              "originalPrice": "R$ 699,00",
+              "rating": 4.6,
+              "image": "https://placehold.co/300x300/FFF/000?text=Razer+BlackShark",
+              "couponCode": "RAZER20",
+              "couponName": "20% OFF",
+              "affiliateLink": "https://kabum.com.br/"
+            }
+          ]
+        },
+        {
+          "id": "cp1",
+          "type": "coupon",
+          "name": "Assinatura Amazon Prime",
+          "discount": "GRÁTIS POR 30 DIAS",
+          "couponCode": "PRIMEFREE",
+          "affiliateLink": "https://amazon.com.br/",
+          "affiliateButtonText": "Resgatar Teste Grátis",
+          "storeName": "Amazon",
+          "description": "Aproveite frete grátis e o streaming do Prime Video sem custo no primeiro mês.",
+          "expiryDate": "2024-12-31",
+          "isExpired": false
+        },
+        {
+          "id": "clist1",
+          "type": "coupon_list",
+          "content": "Cupons de Outono Magalu",
+          "storeName": "Magalu",
+          "affiliateButtonText": "PEGAR CUPOM",
+          "showDescriptions": true,
+          "showStoreInfo": true,
+          "items": [
+            {
+              "id": "citem1",
+              "title": "Eletrodomésticos",
+              "description": "Válido para Geladeiras e Máquinas de Lavar selecionadas.",
+              "discount": "R$ 200 OFF",
+              "couponCode": "MAGALU200",
+              "storeName": "Magalu",
+              "expiryDate": "2024-07-30",
+              "affiliateLink": "https://magazineluiza.com.br/"
+            },
+            {
+              "id": "citem2",
+              "title": "Smart TVs",
+              "description": "Válido apenas para modelos acima de 50 polegadas.",
+              "discount": "10% OFF",
+              "couponCode": "TV10",
+              "storeName": "Magalu",
+              "expiryDate": "2024-07-15",
+              "affiliateLink": "https://magazineluiza.com.br/"
+            }
+          ]
+        },
+        {
+          "id": "h4",
+          "type": "heading",
+          "content": "4. Tabelas Comparativas"
+        },
+        {
+          "id": "t1",
+          "type": "table",
+          "caption": "Comparativo de Modelos: Apple Watch",
+          "showBorders": true,
+          "striped": true,
+          "headers": [
+            "Característica",
+            "Apple Watch SE",
+            "Series 9",
+            "Ultra 2"
+          ],
+          "rows": [
+            {
+              "id": "tr1",
+              "cells": [
+                {
+                  "id": "tc1-1",
+                  "content": "Tamanho",
+                  "isHeader": true
+                },
+                {
+                  "id": "tc1-2",
+                  "content": "40mm ou 44mm"
+                },
+                {
+                  "id": "tc1-3",
+                  "content": "41mm ou 45mm"
+                },
+                {
+                  "id": "tc1-4",
+                  "content": "49mm"
+                }
+              ]
+            },
+            {
+              "id": "tr2",
+              "cells": [
+                {
+                  "id": "tc2-1",
+                  "content": "Material",
+                  "isHeader": true
+                },
+                {
+                  "id": "tc2-2",
+                  "content": "Alumínio"
+                },
+                {
+                  "id": "tc2-3",
+                  "content": "Alumínio ou Aço"
+                },
+                {
+                  "id": "tc2-4",
+                  "content": "Titânio"
+                }
+              ]
+            },
+            {
+              "id": "tr3",
+              "cells": [
+                {
+                  "id": "tc3-1",
+                  "content": "Uso Profissional",
+                  "isHeader": true
+                },
+                {
+                  "id": "tc3-2",
+                  "content": "Não"
+                },
+                {
+                  "id": "tc3-3",
+                  "content": "Parcial"
+                },
+                {
+                  "id": "tc3-4",
+                  "content": "Sim (Mergulho)"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

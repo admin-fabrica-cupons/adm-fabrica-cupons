@@ -1,0 +1,311 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+  ::selection {
+  background: #0055ff;
+  color: #f8fafc;
+  text-shadow: 0 1px 2px rgba(15, 23, 42, 0.2);
+}
+
+.dark ::selection {
+  background: #0055ff;
+  color: #0f172a;
+}
+
+::-moz-selection {
+  background: #0055ff;
+  color: #f8fafc;
+  text-shadow: 0 1px 2px rgba(15, 23, 42, 0.2);
+}
+
+.ai-chat-selection ::selection {
+  background: #ff0055;
+  color: #f8fafc;
+}
+
+.ai-chat-selection ::-moz-selection {
+  background: #ff0055;
+  color: #f8fafc;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.45) transparent;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.45);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(71, 85, 105, 0.7);
+}
+
+/* Custom Scrollbar - Editor */
+.custom-scrollbar {
+  scrollbar-color: rgba(156, 163, 175, 0.6) transparent;
+  scrollbar-width: thin;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.5) 0%, rgba(156, 163, 175, 0.5) 100%);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: all 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.8) 0%, rgba(107, 114, 128, 0.8) 100%);
+  background-clip: content-box;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(96, 165, 250, 0.4) 0%, rgba(100, 116, 139, 0.4) 100%);
+  background-clip: content-box;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(96, 165, 250, 0.7) 0%, rgba(71, 85, 105, 0.7) 100%);
+  background-clip: content-box;
+}
+
+/* Toolbar Scrollbar */
+.toolbar-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.toolbar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toolbar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 3px;
+}
+
+.toolbar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.5);
+}
+
+.dark .toolbar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(96, 165, 250, 0.3);
+}
+
+.dark .toolbar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(96, 165, 250, 0.5);
+}
+
+/* ProseMirror Editor */
+.ProseMirror h1 {
+  font-size: 2em;
+  font-weight: 700;
+  margin: 0.67em 0;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5em;
+  font-weight: 700;
+  margin: 0.75em 0;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.ProseMirror h3 {
+  font-size: 1.25em;
+  font-weight: 700;
+  margin: 0.83em 0;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.ProseMirror h4 {
+  font-size: 1.1em;
+  font-weight: 700;
+  margin: 1em 0;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.ProseMirror h5 {
+  font-size: 0.95em;
+  font-weight: 700;
+  margin: 1.17em 0;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.ProseMirror h6 {
+  font-size: 0.85em;
+  font-weight: 700;
+  margin: 1.33em 0;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.dark .ProseMirror h1,
+.dark .ProseMirror h2,
+.dark .ProseMirror h3,
+.dark .ProseMirror h4,
+.dark .ProseMirror h5,
+.dark .ProseMirror h6 {
+  color: #f1f5f9;
+}
+
+.ProseMirror ul {
+  list-style-type: disc !important;
+  padding-left: 1.5em !important;
+}
+.ProseMirror ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5em !important;
+}
+.ProseMirror li {
+  display: list-item !important;
+  margin: 0.2em 0;
+}
+.ProseMirror blockquote,
+.editor-blockquote {
+  position: relative;
+  margin: 1.5em 0;
+  padding: 1em 1.5em 1em 2em;
+  border-left: 4px solid #e2e8f0;
+}
+/* Date/Time Picker Dark Mode Fix */
+.dark [type="date"]::-webkit-calendar-picker-indicator,
+.dark [type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+[type="date"]::-webkit-calendar-picker-indicator,
+[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+}
+
+@layer base {
+  .theme {
+    --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
+  }
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --color-1: 0 100% 63%;
+    --color-2: 270 100% 63%;
+    --color-3: 210 100% 63%;
+    --color-4: 195 100% 63%;
+    --color-5: 90 100% 63%;
+  }
+  .dark {
+    --background: 217 33% 8%;
+    --foreground: 210 40% 98%;
+    --card: 217 33% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 217 33% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 217 91% 60%;
+    --chart-1: 217 91% 60%;
+    --chart-2: 199 89% 48%;
+    --chart-3: 187 85% 53%;
+    --chart-4: 173 80% 40%;
+    --chart-5: 198 93% 60%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    border-radius: var(--radius);
+  }
+
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

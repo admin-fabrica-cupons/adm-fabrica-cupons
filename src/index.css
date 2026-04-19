@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos globais adicionais que estavam no index.html podem ser movidos para cá se preferir, 
+   mas por enquanto vamos manter apenas o básico do Tailwind */
+
+/* Ocultar ícones padrão de inputs de data e hora */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+/* Tiptap List Styles */
+.ProseMirror ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+}
+.ProseMirror ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+}
+
+/* Tiptap Blockquote Styles */
+.ProseMirror blockquote,
+.editor-blockquote {
+  position: relative;
+  margin: 1.5em 0;
+  padding: 1em 1.5em;
+  border-left: 4px solid #e2e8f0;
+  background: #f8fafc;
+  color: #475569;
+  font-style: italic;
+  border-radius: 0.5rem;
+}
+.ProseMirror blockquote p,
+.editor-blockquote p {
+  margin: 0;
+}
+.dark .ProseMirror blockquote,
+.dark .editor-blockquote {
+  border-left-color: #334155;
+  background: #1e293b;
+  color: #cbd5e1;
+}
+.drag-handle {
+  position: absolute;
+  left: -28px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  cursor: grab;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 120ms ease, background-color 120ms ease, color 120ms ease;
+}
+.drag-handle::before {
+  content: '⋮⋮';
+  font-size: 16px;
+  line-height: 1;
+}
+.ProseMirror .drag-handle {
+  pointer-events: auto;
+}
+.ProseMirror .drag-handle:hover {
+  background: #f1f5f9;
+  color: #475569;
+  opacity: 1;
+}
+.ProseMirror:focus .drag-handle,
+.ProseMirror-focused .drag-handle,
+.ProseMirror .has-focus .drag-handle,
+.ProseMirror .is-selected .drag-handle,
+.ProseMirror .drag-handle.is-active {
+  opacity: 1;
+}
+
+/* Tiptap Headings Styles */
+.ProseMirror h1 {
+  font-size: 2em;
+  font-weight: 800;
+  margin-top: 0.8em;
+  margin-bottom: 0.4em;
+  line-height: 1.1;
+}
+.ProseMirror h2 {
+  font-size: 1.6em;
+  font-weight: 700;
+  margin-top: 0.7em;
+  margin-bottom: 0.35em;
+  line-height: 1.2;
+}
+.ProseMirror h3 {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-top: 0.6em;
+  margin-bottom: 0.3em;
+}
+
+/* Review Box Styles */
+.review-box {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden my-6;
+}
+.review-pros {
+  @apply p-4 bg-green-50/50 dark:bg-green-900/10;
+}
+.review-cons {
+  @apply p-4 bg-red-50/50 dark:bg-red-900/10;
+}
+.review-title {
+  @apply font-bold text-sm uppercase tracking-wider mb-2 flex items-center gap-2;
+}
+
+/* Gapcursor Style */
+.ProseMirror-gapcursor {
+  display: none;
+  pointer-events: none;
+  position: absolute;
+}
+
+.ProseMirror-gapcursor:after {
+  background-color: black;
+  content: "";
+  display: block;
+  position: absolute;
+  top: -2px;
+  width: 20px;
+  border-top: 1px solid black;
+  animation: ProseMirror-cursor-blink 1.1s steps(2, start) infinite;
+}
+
+@keyframes ProseMirror-cursor-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+.ProseMirror-focused .ProseMirror-gapcursor {
+  display: block;
+}
+
+@layer base {
+  .theme {
+    --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
+  }
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
