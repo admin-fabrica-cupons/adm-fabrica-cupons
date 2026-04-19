@@ -1,0 +1,200 @@
+/* Estilos customizados para Prism.js no chat de IA */
+
+/* Scrollbar customizada para blocos de código */
+.prism-code-block pre::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.prism-code-block pre::-webkit-scrollbar-track {
+  background: rgba(148, 163, 184, 0.1);
+  border-radius: 4px;
+}
+
+.prism-code-block pre::-webkit-scrollbar-thumb {
+  background: rgba(236, 72, 153, 0.3);
+  border-radius: 4px;
+}
+
+.prism-code-block pre::-webkit-scrollbar-thumb:hover {
+  background: rgba(236, 72, 153, 0.5);
+}
+
+/* Animação suave para blocos de código */
+.prism-code-block {
+  animation: slideInCode 0.3s ease-out;
+}
+
+@keyframes slideInCode {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Destaque de linha ao hover */
+.prism-code-block pre code .token-line:hover {
+  background-color: rgba(236, 72, 153, 0.05);
+}
+
+/* Melhor contraste para números de linha */
+.prism-code-block .linenumber {
+  color: rgba(148, 163, 184, 0.5);
+  user-select: none;
+  padding-right: 1em;
+  text-align: right;
+  min-width: 2.5em;
+}
+
+/* Responsividade para blocos de código */
+@media (max-width: 640px) {
+  .prism-code-block pre {
+    font-size: 0.75rem !important;
+    padding: 0.75rem !important;
+  }
+  
+  .prism-code-block .linenumber {
+    min-width: 2em;
+  }
+}
+
+/* Efeito de brilho ao copiar */
+@keyframes copyGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+  }
+  50% {
+    box-shadow: 0 0 20px 5px rgba(236, 72, 153, 0.3);
+  }
+}
+
+.copy-glow {
+  animation: copyGlow 0.6s ease-out;
+}
+
+/* Melhor aparência para inline code */
+code:not(pre code) {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 0.875em;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Transições suaves para todos os elementos interativos */
+.prism-code-block button,
+.prism-code-block .copy-button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prism-code-block button:active {
+  transform: scale(0.95);
+}
+
+/* Gradientes suaves para cabeçalhos de código */
+.code-header-gradient {
+  background: linear-gradient(135deg, 
+    rgba(248, 250, 252, 1) 0%, 
+    rgba(241, 245, 249, 1) 100%);
+}
+
+.dark .code-header-gradient {
+  background: linear-gradient(135deg, 
+    rgba(30, 41, 59, 1) 0%, 
+    rgba(15, 23, 42, 1) 100%);
+}
+
+/* Efeito de hover nos blocos de conteúdo */
+.content-block {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-block:hover {
+  transform: translateY(-2px);
+}
+
+/* Animação para botões de ação */
+@keyframes buttonPulse {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.action-buttons {
+  animation: buttonPulse 0.3s ease-in-out;
+}
+
+/* Melhor legibilidade para texto em blocos */
+.text-block p {
+  line-height: 1.7;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Estilo para listas com melhor espaçamento */
+.bullet-list li {
+  transition: all 0.2s ease;
+}
+
+.bullet-list li:hover {
+  transform: translateX(4px);
+}
+
+/* Bordas com gradiente para destaque */
+.gradient-border {
+  position: relative;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #ec4899, #f43f5e) border-box;
+  border: 2px solid transparent;
+}
+
+.dark .gradient-border {
+  background: linear-gradient(#0f172a, #0f172a) padding-box,
+              linear-gradient(135deg, #ec4899, #f43f5e) border-box;
+}
+
+/* Sombras suaves e responsivas */
+.soft-shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+              0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.soft-shadow:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* Melhor contraste para modo escuro */
+.dark .text-content {
+  color: rgba(226, 232, 240, 0.95);
+}
+
+/* Animação de entrada para seções */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-animate {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Delay progressivo para múltiplas seções */
+.section-animate:nth-child(1) { animation-delay: 0.05s; }
+.section-animate:nth-child(2) { animation-delay: 0.1s; }
+.section-animate:nth-child(3) { animation-delay: 0.15s; }
+.section-animate:nth-child(4) { animation-delay: 0.2s; }
+.section-animate:nth-child(5) { animation-delay: 0.25s; }

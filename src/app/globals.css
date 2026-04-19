@@ -540,3 +540,52 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Scroll restoration e otimizações de performance */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevenir scroll horizontal no mobile */
+* {
+  overscroll-behavior-x: none;
+}
+
+/* Otimização de scroll no mobile */
+@supports (-webkit-touch-callout: none) {
+  body {
+    /* iOS Safari */
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Loading states */
+.loading-card {
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+/* Smooth page transitions */
+@media (prefers-reduced-motion: no-preference) {
+  .page-transition {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

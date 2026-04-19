@@ -40,6 +40,10 @@ import { LuLetterText } from 'react-icons/lu';
 import { BsTextParagraph } from 'react-icons/bs';
 import { Copy, Check, BookOpen, X, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus, vs } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export interface Message {
   id: string;
@@ -84,11 +88,11 @@ const responseSizeOptions = [
 ];
 
 const modelOptions = [
-  { id: 'groq', label: 'Groq', Icon: Groq.Avatar },
-  { id: 'qwen-safety', label: 'Qwen Safety', Icon: Qwen.Avatar },
-  { id: 'nova-fast', label: 'Nova Fast', Icon: Nova.Avatar },
+  { id: 'groq', label: 'Groq (Llama 3.3)', Icon: Groq.Avatar },
+  { id: 'openai', label: 'OpenAI (GPT-4o)', Icon: Qwen.Avatar },
+  { id: 'nova-fast', label: 'Amazon Nova', Icon: Nova.Avatar },
   { id: 'mistral', label: 'Mistral', Icon: Mistral.Avatar },
-  { id: 'gemini-fast', label: 'Gemini Fast', Icon: Gemini.Avatar },
+  { id: 'gemini-fast', label: 'Gemini Flash', Icon: Gemini.Avatar },
 ];
 
 const RiAiGenerate2 = RiAiGenerateText;
@@ -162,6 +166,45 @@ const IntelligentResponseContent: React.FC<{
   onInsert?: (text: string) => void;
 }> = ({ content, onCopy, onInsert }) => {
   const [copiedText, setCopiedText] = useState<string | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [displayedContent, setDisplayedContent] = useState('');
+  const [isAnimating, setIsAnimating] = useState(true);
+
+  useEffect(() => {
+    // Detectar modo escuro
+    const checkDarkMode = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    };
+    checkDarkMode();
+    
+    // Observer para mudanças no tema
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
+
+  // Animação de digitação MUITO MAIS RÁPIDA
+  useEffect(() => {
+    setDisplayedContent('');
+    setIsAnimating(true);
+    
+    let currentIndex = 0;
+    const chunkSize = 8; // Mostrar 8 caracteres por vez - MUITO RÁPIDO!
+    
+    const interval = setInterval(() => {
+      if (currentIndex < content.length) {
+        setDisplayedContent(content.slice(0, currentIndex + chunkSize));
+        currentIndex += chunkSize;
+      } else {
+        setDisplayedContent(content);
+        setIsAnimating(false);
+        clearInterval(interval);
+      }
+    }, 8); // Intervalo de apenas 8ms - SUPER RÁPIDO!
+    
+    return () => clearInterval(interval);
+  }, [content]);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -170,34 +213,34 @@ const IntelligentResponseContent: React.FC<{
   };
 
   const parseMarkdown = (text: string) => {
-    // Parse markdown with support for bold, italic, and inline formatting
     const parseInline = (str: string) => {
       const parts: React.ReactNode[] = [];
       let lastIndex = 0;
       
-      // Match **bold**, *italic*, and `code`
+      // Match **bold**, *italic*, `code`, and inline code
       const regex = /\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`/g;
       let match;
       
       while ((match = regex.exec(str)) !== null) {
-        // Add text before match
         if (match.index > lastIndex) {
           parts.push(str.substring(lastIndex, match.index));
         }
         
-        // Add formatted text
         if (match[1]) {
           parts.push(<strong key={`bold-${match.index}`} className="font-bold text-slate-900 dark:text-white">{match[1]}</strong>);
         } else if (match[2]) {
           parts.push(<em key={`italic-${match.index}`} className="italic text-slate-800 dark:text-slate-100">{match[2]}</em>);
         } else if (match[3]) {
-          parts.push(<code key={`code-${match.index}`} className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-xs font-mono text-slate-700 dark:text-slate-200">{match[3]}</code>);
+          parts.push(
+            <code key={`code-${match.index}`} className="bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-950/30 dark:to-rose-950/30 px-2 py-0.5 rounded-md text-xs font-mono text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800/50">
+              {match[3]}
+            </code>
+          );
         }
         
         lastIndex = regex.lastIndex;
       }
       
-      // Add remaining text
       if (lastIndex < str.length) {
         parts.push(str.substring(lastIndex));
       }
@@ -208,47 +251,122 @@ const IntelligentResponseContent: React.FC<{
     const lines = text.split('\n');
     const elements: React.ReactNode[] = [];
     let currentSection: string[] = [];
-    let currentSectionType: 'paragraph' | 'bullets' | null = null;
+    let currentSectionType: 'paragraph' | 'bullets' | 'code' | null = null;
+    let currentCodeLanguage = '';
     let sectionKey = 0;
 
     const flushSection = () => {
       if (currentSection.length === 0) return;
 
-      if (currentSectionType === 'bullets') {
+      if (currentSectionType === 'code') {
+        const codeContent = currentSection.join('\n');
+        const language = currentCodeLanguage || 'javascript';
+        
         elements.push(
-          <div key={`bullets-${sectionKey}`} className="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700 group/section">
-            <ul className="space-y-2">
+          <div key={`code-${sectionKey}`} className="group/code my-4 rounded-xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-800 dark:to-slate-900 px-4 py-2 border-b border-slate-200 dark:border-slate-700">
+              <div className="flex items-center gap-2">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                </div>
+                <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider ml-2">
+                  {language}
+                </span>
+              </div>
+              <button
+                onClick={() => handleCopy(codeContent)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-pink-50 dark:hover:bg-pink-950/30 hover:text-pink-600 dark:hover:text-pink-400 transition-all text-xs font-semibold border border-slate-200 dark:border-slate-600 shadow-sm"
+                title="Copiar código"
+              >
+                {copiedText === codeContent ? (
+                  <>
+                    <Check size={12} className="text-green-500" />
+                    <span className="text-green-600 dark:text-green-400">Copiado!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={12} />
+                    <span>Copiar</span>
+                  </>
+                )}
+              </button>
+            </div>
+            <div className="relative">
+              <SyntaxHighlighter
+                language={language}
+                style={isDarkMode ? vscDarkPlus : vs}
+                customStyle={{
+                  margin: 0,
+                  padding: '1.25rem',
+                  fontSize: '0.875rem',
+                  lineHeight: '1.6',
+                  background: isDarkMode ? '#0f172a' : '#ffffff',
+                  borderRadius: 0,
+                }}
+                showLineNumbers={codeContent.split('\n').length > 3}
+                wrapLines={true}
+                wrapLongLines={true}
+              >
+                {codeContent}
+              </SyntaxHighlighter>
+            </div>
+          </div>
+        );
+      } else if (currentSectionType === 'bullets') {
+        elements.push(
+          <div key={`bullets-${sectionKey}`} className="bg-gradient-to-br from-slate-50 to-slate-100/50 dark:from-slate-900/50 dark:to-slate-800/30 rounded-xl p-5 border-2 border-slate-200 dark:border-slate-700 group/section my-3 shadow-sm hover:shadow-md transition-shadow">
+            <ul className="space-y-3">
               {currentSection.map((item, i) => (
-                <li key={i} className="text-sm text-slate-700 dark:text-slate-200 flex items-start gap-3">
-                  <span className="text-pink-500 font-bold mt-0.5 flex-shrink-0">•</span>
-                  <span className="flex-1">{parseInline(item)}</span>
+                <li key={i} className="text-sm text-slate-700 dark:text-slate-200 flex items-start gap-3 group/item">
+                  <span className="text-pink-500 font-bold mt-0.5 flex-shrink-0 text-lg">•</span>
+                  <span className="flex-1 leading-relaxed">{parseInline(item)}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-3 flex gap-2 opacity-0 group-hover/section:opacity-100 transition-opacity">
+            <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex gap-2 opacity-0 group-hover/section:opacity-100 transition-opacity">
               <button
                 onClick={() => handleCopy(currentSection.join('\n'))}
-                className="p-1.5 rounded-lg bg-white dark:bg-slate-800 text-slate-400 hover:text-pink-500 transition-colors border border-slate-200 dark:border-slate-600"
-                title="Copiar"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 text-slate-500 hover:text-pink-600 dark:hover:text-pink-400 transition-colors border border-slate-200 dark:border-slate-600 text-xs font-semibold"
+                title="Copiar lista"
               >
-                {copiedText === currentSection.join('\n') ? <Check size={14} /> : <Copy size={14} />}
+                {copiedText === currentSection.join('\n') ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
+                {copiedText === currentSection.join('\n') ? 'Copiado' : 'Copiar'}
               </button>
+              {onInsert && (
+                <button
+                  onClick={() => onInsert(currentSection.join('\n'))}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors text-xs font-semibold border border-emerald-200 dark:border-emerald-800"
+                >
+                  <BookOpen size={12} /> Inserir
+                </button>
+              )}
             </div>
           </div>
         );
       } else if (currentSectionType === 'paragraph') {
         const text = currentSection.join(' ');
         elements.push(
-          <div key={`para-${sectionKey}`} className="bg-white dark:bg-slate-900/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700 group/section">
+          <div key={`para-${sectionKey}`} className="bg-white dark:bg-slate-900/50 rounded-xl p-5 border border-slate-200 dark:border-slate-700 group/section my-3 shadow-sm hover:shadow-md transition-shadow">
             <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed">{parseInline(text)}</p>
-            <div className="mt-3 flex gap-2 opacity-0 group-hover/section:opacity-100 transition-opacity">
+            <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex gap-2 opacity-0 group-hover/section:opacity-100 transition-opacity">
               <button
                 onClick={() => handleCopy(text)}
-                className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-pink-500 transition-colors border border-slate-200 dark:border-slate-600"
-                title="Copiar"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-500 hover:text-pink-600 dark:hover:text-pink-400 transition-colors border border-slate-200 dark:border-slate-600 text-xs font-semibold"
+                title="Copiar parágrafo"
               >
-                {copiedText === text ? <Check size={14} /> : <Copy size={14} />}
+                {copiedText === text ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
+                {copiedText === text ? 'Copiado' : 'Copiar'}
               </button>
+              {onInsert && (
+                <button
+                  onClick={() => onInsert(text)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors text-xs font-semibold border border-emerald-200 dark:border-emerald-800"
+                >
+                  <BookOpen size={12} /> Inserir
+                </button>
+              )}
             </div>
           </div>
         );
@@ -259,12 +377,31 @@ const IntelligentResponseContent: React.FC<{
       sectionKey++;
     };
 
-    lines.forEach((line) => {
+    lines.forEach((line, lineIndex) => {
+      // Detectar blocos de código
+      if (line.startsWith('```')) {
+        if (currentSectionType === 'code') {
+          // Fim do bloco de código
+          flushSection();
+        } else {
+          // Início do bloco de código
+          flushSection();
+          currentSectionType = 'code';
+          currentCodeLanguage = line.replace(/^```/, '').trim() || 'text';
+        }
+        return;
+      }
+
+      if (currentSectionType === 'code') {
+        currentSection.push(line);
+        return;
+      }
+
       if (line.startsWith('# ')) {
         flushSection();
         const title = line.replace(/^#+\s+/, '').trim();
         elements.push(
-          <h1 key={`h1-${sectionKey}`} className="text-3xl font-black text-slate-900 dark:text-white mt-8 mb-4 pt-6 border-t-2 border-pink-500 tracking-tight">
+          <h1 key={`h1-${sectionKey}`} className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-600 dark:from-pink-400 dark:to-rose-400 mt-8 mb-4 pt-6 border-t-4 border-pink-500 tracking-tight">
             {parseInline(title)}
           </h1>
         );
@@ -273,7 +410,8 @@ const IntelligentResponseContent: React.FC<{
         flushSection();
         const title = line.replace(/^#+\s+/, '').trim();
         elements.push(
-          <h2 key={`h2-${sectionKey}`} className="text-2xl font-bold text-pink-600 dark:text-pink-400 mt-6 mb-3">
+          <h2 key={`h2-${sectionKey}`} className="text-2xl font-bold text-pink-600 dark:text-pink-400 mt-6 mb-3 flex items-center gap-2">
+            <span className="w-1.5 h-6 bg-gradient-to-b from-pink-500 to-rose-500 rounded-full"></span>
             {parseInline(title)}
           </h2>
         );
@@ -282,7 +420,8 @@ const IntelligentResponseContent: React.FC<{
         flushSection();
         const title = line.replace(/^#+\s+/, '').trim();
         elements.push(
-          <h3 key={`h3-${sectionKey}`} className="text-lg font-semibold text-slate-800 dark:text-slate-100 mt-4 mb-2">
+          <h3 key={`h3-${sectionKey}`} className="text-lg font-semibold text-slate-800 dark:text-slate-100 mt-4 mb-2 flex items-center gap-2">
+            <span className="w-1 h-5 bg-pink-400 rounded-full"></span>
             {parseInline(title)}
           </h3>
         );
@@ -317,23 +456,23 @@ const IntelligentResponseContent: React.FC<{
       className="space-y-4"
     >
       <div className="space-y-4">
-        {parseMarkdown(content)}
+        {parseMarkdown(displayedContent)}
       </div>
 
-      <div className="flex gap-2 pt-4 border-t border-slate-200 dark:border-slate-700">
+      <div className="flex gap-2 pt-4 border-t-2 border-slate-200 dark:border-slate-700">
         <button
           onClick={() => handleCopy(content)}
-          className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-xs font-semibold"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-slate-100 to-slate-50 dark:from-slate-800 dark:to-slate-900 text-slate-700 dark:text-slate-300 hover:from-pink-50 hover:to-rose-50 dark:hover:from-pink-950/30 dark:hover:to-rose-950/30 hover:text-pink-600 dark:hover:text-pink-400 transition-all text-xs font-bold border-2 border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md"
         >
-          {copiedText === content ? <Check size={14} /> : <Copy size={14} />}
-          {copiedText === content ? 'Copiado' : 'Copiar Tudo'}
+          {copiedText === content ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+          {copiedText === content ? 'Copiado!' : 'Copiar Tudo'}
         </button>
         {onInsert && (
           <button
             onClick={() => onInsert(content)}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 transition-colors text-xs font-semibold border border-emerald-200 dark:border-emerald-800"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 text-emerald-700 dark:text-emerald-400 hover:from-emerald-100 hover:to-teal-100 dark:hover:from-emerald-900/30 dark:hover:to-teal-900/30 transition-all text-xs font-bold border-2 border-emerald-200 dark:border-emerald-800 shadow-sm hover:shadow-md"
           >
-            <BookOpen size={14} /> Inserir
+            <BookOpen size={14} /> Inserir Tudo
           </button>
         )}
       </div>

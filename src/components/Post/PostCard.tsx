@@ -184,6 +184,12 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         href={`/post/${post.id}`}
         prefetch={true}
         className={`group flex flex-col h-full relative bg-transparent rounded-lg bg-white dark:bg-transparent border ${borderColor} ${shadowEffect} overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]`}
+        onClick={(e) => {
+          // Show loading indicator
+          const target = e.currentTarget;
+          target.style.opacity = '0.6';
+          target.style.pointerEvents = 'none';
+        }}
       >
         <button
           onClick={toggleFavorite}

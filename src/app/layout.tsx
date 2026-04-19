@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from 'next';
 import { Suspense } from 'react';
 import './globals.css';
+import '../styles/prism-custom.css';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import Providers from '@/components/Providers';
 import { AuthProvider } from '@/contexts/AuthContext';
+import NavigationLoader from '@/components/Common/NavigationLoader';
 
 const plusJakartaSans = Plus_Jakarta_Sans({ 
   subsets: ['latin'],
@@ -45,6 +47,7 @@ export default function RootLayout({
       <body className={`${plusJakartaSans.className} min-h-screen bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-gray-100 transition-colors duration-200`}>
         <AuthProvider>
           <Providers>
+            <NavigationLoader />
             <Suspense fallback={<div className="min-h-screen" />}>
               {children}
             </Suspense>

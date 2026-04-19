@@ -42,6 +42,12 @@ const CouponPostCard: React.FC<CouponPostCardProps> = ({ post }) => {
                  bg-white/40 dark:bg-slate-900/40 backdrop-blur-md 
                  border border-emerald-500/20 hover:border-emerald-500/60
                  shadow-sm hover:shadow-emerald-500/10 hover:scale-[1.02] active:scale-[0.98]"
+      onClick={(e) => {
+        // Show loading indicator
+        const target = e.currentTarget;
+        target.style.opacity = '0.6';
+        target.style.pointerEvents = 'none';
+      }}
     >
       {/* Efeito degradê verde suave no fundo do card (bem sutil) */}
       <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent pointer-events-none" />

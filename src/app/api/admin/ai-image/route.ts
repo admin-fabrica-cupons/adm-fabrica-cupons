@@ -21,7 +21,30 @@ const buildTranslatePrompt = (prompt: string, tone: string, responseSize: string
         : responseLabel === 'paragrafos-bem-dividido'
           ? 'well structured'
           : 'balanced';
-  return `Translate and refine the following prompt into concise English for image generation. Keep it visual and descriptive, ${responseHint}. Tone: ${toneLabel}. Return only the final prompt.\n\nPrompt: ${prompt}`;
+  
+  return `You are an expert at creating image generation prompts. Translate and optimize the following Portuguese/Brazilian prompt into English for AI image generation.
+
+CRITICAL RULES:
+- Keep Brazilian brand names in Portuguese (Mercado Livre, Magazine Luiza, Casas Bahia, etc.)
+- For product images: focus on the object, clear background, professional photography style
+- For discount/promotion images: include discount badges, price tags, promotional elements, vibrant colors
+- For thumbnail/cover images: eye-catching, bold text areas, high contrast
+- Be visual and descriptive, ${responseHint}
+- Tone: ${toneLabel}
+- Return ONLY the optimized English prompt, nothing else
+
+EXAMPLES:
+Input: "Notebook gamer com desconto no Mercado Livre"
+Output: "Professional product photography of a gaming laptop, sleek design, RGB keyboard, on clean white background, with bright red discount badge showing percentage off, promotional style, high quality, 4k"
+
+Input: "Promoção de tênis Nike"
+Output: "Nike sneakers product shot, dynamic angle, studio lighting, white background, large SALE banner, discount tag, promotional poster style, vibrant colors, commercial photography"
+
+Input: "Capa de post sobre ofertas de celular"
+Output: "Eye-catching thumbnail design for smartphone deals, multiple modern phones arranged dynamically, bold discount percentages, vibrant gradient background, promotional banner style, high contrast, attention-grabbing"
+
+Now translate this prompt:
+${prompt}`;
 };
 
 export async function POST(request: Request) {

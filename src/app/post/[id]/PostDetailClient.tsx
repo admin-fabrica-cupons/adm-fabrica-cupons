@@ -12,6 +12,7 @@ import { PostViewer } from '@/components/Admin/Editor/PostViewer';
 import WidgetRenderer from '@/components/Widgets/WidgetRenderer';
 import FabricLogo from '@/components/FabricLogo';
 import { useCategoryIcons } from '@/hooks/useCategoryIcons';
+import { useScrollToTop } from '@/hooks/useScrollToTop';
 
 interface PostDetailClientProps {
   postId: string;
@@ -68,6 +69,9 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ postId, initialPost
 
   const scrollRef = useRef<number>(0);
   const rafRef = useRef<number | null>(null);
+
+  // Scroll to top on mount (fix mobile scroll issue)
+  useScrollToTop();
 
   useEffect(() => {
     const loadPostData = async () => {
@@ -177,9 +181,19 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ postId, initialPost
     if (isLoadingContent || loading) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
-            <p className="text-gray-500 font-medium animate-pulse">Carregando a publicação...</p>
+          <div className="flex flex-col items-center gap-6">
+            <div className="relative">
+              <div className="w-20 h-20 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+              <div className="absolute inset-0 w-20 h-20 border-4 border-pink-500/20 border-b-pink-500 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1s' }} />
+            </div>
+            <div className="text-center">
+              <p className="text-gray-700 dark:text-gray-300 font-bold text-lg mb-2 animate-pulse">
+                Carregando publicação...
+              </p>
+              <p className="text-gray-500 dark:text-gray-400 text-sm">
+                Aguarde um momento
+              </p>
+            </div>
           </div>
         </div>
       );

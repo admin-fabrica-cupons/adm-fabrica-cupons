@@ -67,6 +67,12 @@ const PostCardHorizontal: React.FC<PostCardHorizontalProps> = ({ post, variant =
         href={`/post/${post.id}`}
         prefetch={true}
         className={`flex flex-col ${variant === 'default' ? 'sm:flex-row' : ''} gap-5 bg-transparent transition-all duration-300 group-hover:bg-gray-50 dark:group-hover:bg-slate-800/30 rounded-xl p-3 sm:p-0 hover:scale-[1.005] active:scale-[0.995]`}
+        onClick={(e) => {
+          // Show loading indicator
+          const target = e.currentTarget;
+          target.style.opacity = '0.6';
+          target.style.pointerEvents = 'none';
+        }}
       >
         {/* Left Side: Image */}
         <div className={`relative w-full ${variant === 'default' ? 'sm:w-[280px] md:w-[320px] aspect-[16/9] sm:aspect-[4/3]' : 'aspect-video'} shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-slate-800`}>
