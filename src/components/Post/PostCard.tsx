@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import SafeImage from '../Common/SafeImage';
 import { BlogPost } from '../../types';
 import { Clock, Ticket, ShoppingBag, Tag, Flame, Heart, BookOpen, ArrowRight, Sparkles, Zap, Gift, TrendingUp, Lightbulb } from 'lucide-react';
 import { HiOutlineBookOpen } from 'react-icons/hi';
@@ -242,7 +242,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         )}
 
         <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-slate-700 group">
-          <Image
+          <SafeImage
             src={post.thumbnail}
             alt={post.title}
             width={400}

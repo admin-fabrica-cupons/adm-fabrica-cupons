@@ -32,7 +32,7 @@ import { Particles } from '../magicui/particles';
 import { MagicCard } from '../magicui/magic-card';
 import { ShinyButton } from '@/registry/magicui/shiny-button';
 import AnimatedShinyText from '../magicui/animated-shiny-text';
-import { Groq, Qwen, Nova, Gemini, Mistral } from '@lobehub/icons';
+import { Groq, OpenAI, Nova, Gemini, Mistral, Qwen } from '@lobehub/icons';
 import { MdShortText } from 'react-icons/md';
 import { TbTextPlus } from 'react-icons/tb';
 import { IoText } from 'react-icons/io5';
@@ -89,7 +89,8 @@ const responseSizeOptions = [
 
 const modelOptions = [
   { id: 'groq', label: 'Groq (Llama 3.3)', Icon: Groq.Avatar },
-  { id: 'openai', label: 'OpenAI (GPT-4o)', Icon: Qwen.Avatar },
+  { id: 'openai', label: 'OpenAI (GPT-4o)', Icon: OpenAI.Avatar },
+  { id: 'qwen-safe', label: 'Qwen Safe', Icon: Qwen.Avatar },
   { id: 'nova-fast', label: 'Amazon Nova', Icon: Nova.Avatar },
   { id: 'mistral', label: 'Mistral', Icon: Mistral.Avatar },
   { id: 'gemini-fast', label: 'Gemini Flash', Icon: Gemini.Avatar },
@@ -1014,7 +1015,13 @@ const AIChat: React.FC<AIChatProps> = ({
             <Select.Value />
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="z-[1001] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl p-1 animate-in fade-in zoom-in-95">
+            <Select.Content 
+              className="z-[1001] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl p-1 animate-in fade-in zoom-in-95"
+              position="popper"
+              side="bottom"
+              align="start"
+              sideOffset={5}
+            >
               <Select.Viewport>
                 {modelOptions.map(opt => (
                   <Select.Item key={opt.id} value={opt.id} className="flex items-center gap-2 px-3 py-2 text-xs text-slate-600 dark:text-slate-300 rounded-lg hover:bg-pink-50 dark:hover:bg-pink-950/30 outline-none cursor-pointer">
@@ -1033,7 +1040,13 @@ const AIChat: React.FC<AIChatProps> = ({
             <Select.Value />
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="z-[1001] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl p-1 animate-in fade-in zoom-in-95">
+            <Select.Content 
+              className="z-[1001] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl p-1 animate-in fade-in zoom-in-95"
+              position="popper"
+              side="bottom"
+              align="start"
+              sideOffset={5}
+            >
               <Select.Viewport>
                 {toneOptions.map(opt => (
                   <Select.Item key={opt.id} value={opt.id} className="flex items-center gap-2 px-3 py-2 text-xs text-slate-600 dark:text-slate-300 rounded-lg hover:bg-pink-50 dark:hover:bg-pink-950/30 outline-none cursor-pointer"
@@ -1053,7 +1066,13 @@ const AIChat: React.FC<AIChatProps> = ({
             <Select.Value />
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="z-[1001] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl p-1 animate-in fade-in zoom-in-95">
+            <Select.Content 
+              className="z-[1001] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl p-1 animate-in fade-in zoom-in-95"
+              position="popper"
+              side="bottom"
+              align="start"
+              sideOffset={5}
+            >
               <Select.Viewport>
                 {responseSizeOptions.map(opt => (
                   <Select.Item key={opt.id} value={opt.id} className="flex items-center gap-2 px-3 py-2 text-xs text-slate-600 dark:text-slate-300 rounded-lg hover:bg-pink-50 dark:hover:bg-pink-950/30 outline-none cursor-pointer"

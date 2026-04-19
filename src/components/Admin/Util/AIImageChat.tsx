@@ -460,7 +460,7 @@ const AIImageChat: React.FC<AIImageChatProps> = ({
 
       {/* Header */}
       <div
-        className="flex items-center justify-between px-4 h-14 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 z-20"
+        className="flex items-center justify-between px-4 h-14 bg-white dark:bg-slate-900 border-b border-slate-200/50 dark:border-slate-800/50 z-20"
         onMouseDown={!isFloating ? undefined : handleStartDrag}
       >
         <div className="flex items-center gap-3">
@@ -511,7 +511,13 @@ const AIImageChat: React.FC<AIImageChatProps> = ({
             <Select.Value />
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="z-[10002] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl p-1 animate-in fade-in zoom-in-95">
+            <Select.Content 
+              className="z-[10002] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl p-1 animate-in fade-in zoom-in-95"
+              position="popper"
+              side="bottom"
+              align="start"
+              sideOffset={5}
+            >
               <Select.Viewport>
                 {modelOptions.map(opt => (
                   <Select.Item key={opt.id} value={opt.id} className="flex items-center gap-2 px-3 py-2 text-xs text-slate-600 dark:text-slate-300 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-950/30 outline-none cursor-pointer">
@@ -530,7 +536,13 @@ const AIImageChat: React.FC<AIImageChatProps> = ({
             <Select.Value />
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="z-[10002] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl p-1 animate-in fade-in zoom-in-95">
+            <Select.Content 
+              className="z-[10002] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl p-1 animate-in fade-in zoom-in-95"
+              position="popper"
+              side="bottom"
+              align="start"
+              sideOffset={5}
+            >
               <Select.Viewport>
                 {toneOptions.map(opt => (
                   <Select.Item key={opt.id} value={opt.id} className="flex items-center gap-2 px-3 py-2 text-xs text-slate-600 dark:text-slate-300 rounded-lg hover:bg-pink-50 dark:hover:bg-pink-950/30 outline-none cursor-pointer">
@@ -637,7 +649,7 @@ const AIImageChat: React.FC<AIImageChatProps> = ({
                         <div className="px-4 py-2.5 rounded-2xl text-sm shadow-sm bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-slate-700 dark:text-slate-200 rounded-tl-none">
                           <HyperText 
                             text={msg.text}
-                            duration={0.3}
+                            duration={0.15}
                             className="text-sm leading-relaxed"
                           />
                         </div>
@@ -704,7 +716,7 @@ const AIImageChat: React.FC<AIImageChatProps> = ({
       </div>
 
       {/* Input - Padronizado */}
-      <div className="p-4 bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border-t border-slate-100 dark:border-slate-800/50 z-20">
+      <div className="p-4 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800/50 z-20">
         <div className="flex gap-2 items-center">
           <div className="relative flex-1 group/input">
             <textarea
@@ -830,7 +842,7 @@ const AIImageChat: React.FC<AIImageChatProps> = ({
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/80"
         onClick={onClose}
       />
       <div className="w-full max-w-2xl h-[640px] z-10">

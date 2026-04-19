@@ -439,7 +439,7 @@ const AIChatModal: React.FC<AIChatModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/70"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <MagicCard className="w-full max-w-xl bg-white dark:bg-slate-950 rounded-[32px] border-none shadow-2xl overflow-hidden flex flex-col h-[640px] relative pointer-events-auto z-[10000]"
@@ -452,7 +452,7 @@ const AIChatModal: React.FC<AIChatModalProps> = ({
         />
 
         {/* Header */}
-        <div className="h-16 px-6 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/50 flex items-center justify-between z-20">
+        <div className="h-16 px-6 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800/50 flex items-center justify-between z-20">
           <div className="flex items-center gap-3">
             <div className={`w-10 h-10 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center shadow-lg shadow-pink-500/20 ${isLoading ? 'animate-pulse' : ''}`}>
               <RiRobot3Fill size={20} className="text-white" />
@@ -475,7 +475,7 @@ const AIChatModal: React.FC<AIChatModalProps> = ({
         </div>
 
         {/* Options - Fixed Toolbar */}
-        <div className="sticky top-0 px-6 py-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/50 flex items-center gap-4 z-20 overflow-x-auto no-scrollbar">
+        <div className="sticky top-0 px-6 py-3 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800/50 flex items-center gap-4 z-20 overflow-x-auto no-scrollbar">
           <Select.Root value={tone} onValueChange={setTone}>
             <Select.Trigger className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:border-pink-300 transition-all shadow-sm outline-none">
               {tones.find(t => t.id === tone)?.icon({ size: 14, className: "text-pink-500" })}
@@ -573,7 +573,7 @@ const AIChatModal: React.FC<AIChatModalProps> = ({
                       ) : (
                         <TypingAnimation
                           text={msg.content}
-                          duration={12}
+                          duration={8}
                           className="text-sm leading-relaxed"
                         />
                       )
@@ -616,7 +616,7 @@ const AIChatModal: React.FC<AIChatModalProps> = ({
         </div>
 
         {/* Input - Padronizado */}
-        <div className="p-6 bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border-t border-slate-100 dark:border-slate-800/50 z-20">
+        <div className="p-6 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800/50 z-20">
           <div className="flex gap-2 items-center">
             <div className="relative flex-1 group/input">
               <textarea

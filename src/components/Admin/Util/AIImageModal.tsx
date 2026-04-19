@@ -19,7 +19,7 @@ const AIImageModal: React.FC<AIImageModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 ai-chat-selection bg-black/40 backdrop-blur-sm"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 ai-chat-selection bg-black/70"
       onClick={(event) => {
         if (event.target === event.currentTarget) {
           onClose();

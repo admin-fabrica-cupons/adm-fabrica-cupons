@@ -21,11 +21,15 @@ export function TypingAnimation({
     let i = 0;
     setDisplayedText(""); 
     
+    // Otimização: mostrar múltiplos caracteres por vez para textos longos
+    const chunkSize = text.length > 200 ? 3 : text.length > 100 ? 2 : 1;
+    
     const typingEffect = setInterval(() => {
       if (i < text.length) {
-        setDisplayedText(text.substring(0, i + 1));
-        i++;
+        setDisplayedText(text.substring(0, i + chunkSize));
+        i += chunkSize;
       } else {
+        setDisplayedText(text); // Garantir texto completo
         clearInterval(typingEffect);
       }
     }, duration);

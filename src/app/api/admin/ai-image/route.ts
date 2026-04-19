@@ -151,10 +151,16 @@ export async function POST(request: Request) {
             sizeKB: (arrayBuffer.byteLength / 1024).toFixed(2)
           });
           
-          // Gerar nome único para a imagem
+          // Gerar nome único para a imagem com sanitização
           const timestamp = Date.now();
           const extension = contentType.includes('png') ? 'png' : contentType.includes('webp') ? 'webp' : 'jpg';
-          const fileName = `ai-generated-${timestamp}.${extension}`;
+          // Sanitizar o prompt para usar como parte do nome do arquivo
+          const sanitizedPrompt = (prompt || 'ai-image')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-') // Substituir caracteres especiais por hífen
+            .replace(/^-+|-+$/g, '') // Remover hífens do início e fim
+            .slice(0, 50); // Limitar tamanho
+          const fileName = `${sanitizedPrompt}-${timestamp}.${extension}`;
           const path = `images/ai-generated/${fileName}`;
           
           // Salvar no Supabase
@@ -291,7 +297,14 @@ export async function POST(request: Request) {
       const contentType = imageResponse.headers.get('content-type') || 'image/jpeg';
       const extension = contentType.includes('png') ? 'png' : contentType.includes('webp') ? 'webp' : 'jpg';
       const timestamp = Date.now();
-      const safeFileName = fileName ? fileName.replace(/[^a-zA-Z0-9-_]/g, '').slice(0, 40) : 'ai-image';
+      // Sanitizar nome do arquivo removendo caracteres especiais
+      const safeFileName = fileName 
+        ? fileName
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .slice(0, 40) 
+        : 'ai-image';
       const path = `images/ai-generated/${safeFileName}-${timestamp}.${extension}`;
       console.log('ai-image:save:prepare', { contentType, extension, path });
 

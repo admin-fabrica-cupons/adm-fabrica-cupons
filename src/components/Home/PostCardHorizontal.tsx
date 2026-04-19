@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import SafeImage from '../Common/SafeImage';
 import { BlogPost } from '../../types';
 import { Heart, ArrowRight } from 'lucide-react';
 
@@ -76,7 +76,7 @@ const PostCardHorizontal: React.FC<PostCardHorizontalProps> = ({ post, variant =
       >
         {/* Left Side: Image */}
         <div className={`relative w-full ${variant === 'default' ? 'sm:w-[280px] md:w-[320px] aspect-[16/9] sm:aspect-[4/3]' : 'aspect-video'} shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-slate-800`}>
-          <Image
+          <SafeImage
             src={post.thumbnail}
             alt={post.title}
             fill
@@ -111,7 +111,7 @@ const PostCardHorizontal: React.FC<PostCardHorizontalProps> = ({ post, variant =
             </span>
             <span className="text-[10px] sm:text-xs font-mono font-medium text-gray-400 dark:text-gray-500 uppercase tracking-widest">
               {normalizedDate ? new Date(normalizedDate).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' }) : ''}
-            </span>
+            .</span>
           </div>
 
           {/* Title */}

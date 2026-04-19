@@ -22,7 +22,7 @@ interface ProductWidgetProps {
 const shouldUnoptimize = (src?: string) =>
   !!src && (src.includes('placehold.co') || src.endsWith('.svg'));
 
-const sanitizeImageSrc = (value?: string) => (value || '').trim();
+const sanitizeImageSrc = (value?: string) => (value || '').toString().trim();
 
 const ProductWidget: React.FC<ProductWidgetProps> = ({ data, layout, onClick, isPreview = false }) => {
   const { getCategoryIcon } = useCategoryIcons();
@@ -97,14 +97,14 @@ const ProductWidget: React.FC<ProductWidgetProps> = ({ data, layout, onClick, is
 
   const resolvePartnerStoreName = (storeName?: string) => {
     if (!storeName) return undefined;
-    const trimmed = storeName.trim();
+    const trimmed = String(storeName || '').trim();
     if (PARTNER_STORES[trimmed as keyof typeof PARTNER_STORES]) return trimmed;
     return Object.keys(PARTNER_STORES).find(key => key.toLowerCase() === trimmed.toLowerCase());
   };
 
   const resolveStoreTheme = (storeName?: string) => {
     if (!storeName) return STORE_THEMES['Default'];
-    const trimmed = storeName.trim();
+    const trimmed = String(storeName || '').trim();
     if (STORE_THEMES[trimmed as keyof typeof STORE_THEMES]) return STORE_THEMES[trimmed as keyof typeof STORE_THEMES];
     const match = Object.keys(STORE_THEMES).find(key => key.toLowerCase() === trimmed.toLowerCase());
     return STORE_THEMES[(match || 'Default') as keyof typeof STORE_THEMES];
